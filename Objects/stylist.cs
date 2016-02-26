@@ -57,7 +57,7 @@ namespace salon
       int stylistsid = rdr.GetInt32(0);
       string stylistsName = rdr.GetString(1);
       stylists newstylists = new stylists(stylistsName, stylistsid);
-      allCuisines.Add(newstylists);
+      allstylists.Add(newstylists);
     }
     if (rdr != null)
     {
@@ -67,8 +67,17 @@ namespace salon
     {
       conn.Close();
     }
-    return allCuisines;
+    return allstylists;
   }
+  public static void DeleteAll()
+  {
+    SqlConnection conn = DB.Connection();
+    conn.Open();
+    SqlCommand cmd = new SqlCommand("DELETE FROM stylists", conn);
+    cmd.ExecuteNonQuery();
+  }
+}
+}
 
   // public void Save()
   //  {
