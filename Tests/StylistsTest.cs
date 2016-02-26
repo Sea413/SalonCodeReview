@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace salon
 {
-  public class StylistsTest : IDisposable
+  public class SylistTesting : IDisposable
   {
-    public StylistsTest()
+    public SylistTesting()
     {
-      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon;Integrated Security=SSPI;";
+      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test;Integrated Security=SSPI;";
     }
 
-//     [Fact]
-//     public void Test_StylistsEmptyAtFirst()
-//     {
-//       int result = stylists.GetAll().Count;
-//       Assert.Equal(0, result);
-//     }
-//     public void Dispose()
-//     {
-//       stylists.DeleteAll();
-//     }
+    [Fact]
+    public void Test_StylistsEmptyAtFirst()
+    {
+      int result = stylists.GetAll().Count;
+      Assert.Equal(0, result);
+    }
+    public void Dispose()
+    {
+      stylists.DeleteAll();
+    }
   }
 }
 

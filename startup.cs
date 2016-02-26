@@ -5,7 +5,7 @@ using Nancy;
 using Nancy.ViewEngines.Razor;
 using System.Collections.Generic;
 
-namespace cuisineRestaurants
+namespace salon
 {
   public class Startup
   {
@@ -40,6 +40,6 @@ namespace cuisineRestaurants
   }
   public static class DBConfiguration
   {
-    public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=restaurantCuisine;Integrated Security=SSPI";
+    public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon;Integrated Security=SSPI";
   }
 }
