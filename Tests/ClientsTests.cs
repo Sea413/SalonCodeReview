@@ -19,6 +19,19 @@
        int result = Clients.GetAll().Count;
        Assert.Equal(0,result);
      }
+     [Fact]
+     public void Test_SavingaClientToDatabase()
+     {
+
+       Clients newClients = new Clients("Dazzle", 2);
+       newClients.Save();
+
+
+       List<Clients> testing = new List<Clients> {newClients};
+       List<Clients> result = Clients.GetAll();
+
+       Assert.Equal(testing, result);
+     }
      public void Dispose()
      {
        stylists.DeleteAll();

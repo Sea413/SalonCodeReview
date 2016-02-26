@@ -83,6 +83,39 @@ namespace salon
        }
        return allClients;
      }
+     public void Save()
+     {
+       SqlConnection conn = DB.Connection();
+       SqlDataReader rdr;
+       conn.Open();
+
+       SqlCommand cmd = new SqlCommand("Insert INTO clients (name, styleist_id) OUTPUT INSERTED.id VALUES (@CName, @SId);",conn);
+
+       SqlParameter nameParameter = new SqlParameter();
+       nameParameter.ParameterName = "@CName";
+       nameParameter.Value = this.GetName();
+
+       SqlParameter StylistIdParameter = new SqlParameter();
+       StylistIdParameter.ParameterName = "@SId";
+       StylistIdParameter.Value = this.GetStylistId();
+
+       cmd.Parameters.Add(nameParameter);
+       cmd.Parameters.Add(StylistIdParameter);
+       rdr = cmd.ExecuteReader();
+
+       while(rdr.Read())
+       {
+         this._id = rdr.GetInt32(0);
+       }
+       if (rdr != null)
+       {
+         rdr.Close();
+       }
+       if (conn != null)
+       {
+         conn.Close();
+       }
+     }
      public static void DeleteAll()
     {
       SqlConnection conn = DB.Connection();
