@@ -118,41 +118,41 @@ namespace salon
          conn.Close();
        }
      }
-    //  public static Clients Find(int id)
-    //     {
-    //       SqlConnection conn = DB.Connection();
-    //       SqlDataReader rdr = null;
-    //       conn.Open();
-     //
-    //       SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @lientID;", conn);
-    //       SqlParameter ClientsIDParameter = new SqlParameter();
-    //       ClientsIDParameter.ParameterName = "@ClientID";
-    //       ClientsIDParameter.Value = id.ToString();
-    //       cmd.Parameters.Add(ClientsIDParameter);
-    //       rdr = cmd.ExecuteReader();
-     //
-    //       int foundClientID = 0;
-    //       string foundClientName = null;
-    //       int foundStylistID = 0;
-     //
-    //       while(rdr.Read())
-    //       {
-    //         foundClientID = rdr.GetInt32(0);
-    //         foundClientName = rdr.GetString(1);
-    //         foundStylistID = rdr.GetInt32(2);
-    //       }
-    //       Clients foundClients = new Clients( foundClientName, foundStylistID, foundClientID);
-     //
-    //       if(rdr != null)
-    //       {
-    //         rdr.Close();
-    //       }
-    //       if(conn != null)
-    //       {
-    //         conn.Close();
-    //       }
-    //       return foundClients;
-    //     }
+     public static Clients Find(int id)
+        {
+          SqlConnection conn = DB.Connection();
+          SqlDataReader rdr = null;
+          conn.Open();
+
+          SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @lientID;", conn);
+          SqlParameter ClientsIDParameter = new SqlParameter();
+          ClientsIDParameter.ParameterName = "@ClientID";
+          ClientsIDParameter.Value = id.ToString();
+          cmd.Parameters.Add(ClientsIDParameter);
+          rdr = cmd.ExecuteReader();
+
+          int foundClientID = 0;
+          string foundClientName = null;
+          int foundStylistID = 0;
+
+          while(rdr.Read())
+          {
+            foundClientID = rdr.GetInt32(0);
+            foundClientName = rdr.GetString(1);
+            foundStylistID = rdr.GetInt32(2);
+          }
+          Clients foundClients = new Clients( foundClientName, foundStylistID, foundClientID);
+
+          if(rdr != null)
+          {
+            rdr.Close();
+          }
+          if(conn != null)
+          {
+            conn.Close();
+          }
+          return foundClients;
+        }
  public void UpdateName (string newName, int newStylistId)
    {
      SqlConnection conn = DB.Connection();
@@ -186,6 +186,25 @@ namespace salon
      {
        rdr.Close();
      }
+
+     if (conn != null)
+     {
+       conn.Close();
+     }
+   }
+   public void Delete()
+   {
+     SqlConnection conn = DB.Connection();
+     conn.Open();
+
+     SqlCommand cmd = new SqlCommand("DELETE FROM clients WHERE id = @CId;", conn);
+
+     SqlParameter ClientsIDParameter = new SqlParameter();
+     ClientsIDParameter.ParameterName = "@CId";
+     ClientsIDParameter.Value = this.GetId();
+
+     cmd.Parameters.Add(ClientsIDParameter);
+     cmd.ExecuteNonQuery();
 
      if (conn != null)
      {

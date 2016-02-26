@@ -45,19 +45,20 @@
 
        Assert.Equal(testingClient, result);
      }
-    //  [Fact]
-    //  public void Test_UpdateStyleID_ChangeStylistId()
-    //  {
-    //    Clients newClients = new Clients("Doug", 2);
-    //    newClients.Save();
-    //    string testingClient = "Josh";
-    //    int testingSID = 3;
-     //
-    //    newClients.UpdateStyleId(testingClient, testingSID);
-    //    int result = newClients.GetStylistId();
-     //
-    //    Assert.Equal(testingSID, result);
-    //  }
+     public void Test_Delete_Delete()
+     {
+       Clients newClients = new Clients("Dave", 5);
+       newClients.Save();
+       Clients newClients2 = new Clients("Josh", 6);
+       newClients2.Save();
+
+       newClients.Delete();
+       List<Clients> resultClients = Clients.GetAll();
+       List<Clients> testClients = new List<Clients> {newClients2};
+
+       Assert.Equal(resultClients, testClients);
+     }
+
      public void Dispose()
      {
        stylists.DeleteAll();
