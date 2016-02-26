@@ -1,55 +1,28 @@
+ using System;
+ using System.Collections.Generic;
+ using System.Data;
+ using System.Data.SqlClient;
+ using System.Linq;
+ using Xunit;
 
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System;
-
-namespace salon
-{
-  public class Clients
+ namespace salon
+ {
+   public class ClientTesting : IDisposable
    {
-     private int _id;
-     private int _stylistId;
-     private string _name;
-
-     public Clients (string name, int stylistId, int Id =0)
+     public ClientTesting()
      {
-       _id = Id;
-       _stylistId = stylistId;
-       _name = name;
+       DBConfiguration.ConnectionString = "Data Source = (localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test; Integrated Security=SSPI;";
      }
-
-     public override bool Equals(System.Object otherClients)
-    {
-      if (!(otherClients is Clients)) {
-        return false;
-      }
-      else
-      {
-        Clients newClients = (Clients) otherClients;
-        bool idEquality = this.GetId() == newClients.GetId();
-        bool idCuisineEquality= this.GetStylistId() == newClients.GetStylistId();
-        bool nameEquality = this.GetName() == newRestaurants.GetName();
-        return (idEquality && nameEquality);
-      }
-    }
-      public int GetId()
+     [Fact]
+     public void Test_DetermineifDBisEmpty()
      {
-       return _id;
+       int result = Clients.GetAll().Count;
+       Assert.Equal(0,result);
      }
-     public string GetName()
+     public void Dispose()
      {
-       return _name;
+       stylists.DeleteAll();
+       Clients.DeleteAll();
      }
-     public void SetName(string newName)
-     {
-       _name = newName;
-     }
-     public int GetStylistId()
-     {
-       return _stylistId;
-     }
-
-     public void SetStylistId(int newStylistId)
-     {
-       _stylistId = newStylistId;
-     }
+   }
+ }
