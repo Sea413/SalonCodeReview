@@ -20,18 +20,42 @@ namespace salon
       int result = stylists.GetAll().Count;
       Assert.Equal(0, result);
     }
+    [Fact]
+    public void Test_SavingaStylistToDatabase()
+    {
+      stylists newStylist = new stylists("Sarah");
+      newStylist.Save();
+
+      List<stylists> testing = new List<stylists> {newStylist};
+      List<stylists> result = stylists.GetAll();
+
+      Assert.Equal(testing, result);
+    }
+    [Fact]
+    public void Test_SavingaStylistToDatabase()
+    {
+      stylists newStylist = new stylists("Sarah");
+      newStylist.Save();
+
+      List<stylists> testing = new List<stylists> {newStylist};
+      List<stylists> result = stylists.GetAll();
+
+      Assert.Equal(testing, result);
+    }
+    [Fact]
+    public void Test_FindingDatabaseId()
+    {
+      stylists newStylist = new stylists("Sarah");
+      newStylist.Save();
+
+      List<stylists> testing = new List<stylists> {newStylist};
+      List<stylists> result = newStylist.Find();
+
+      Assert.Equal(testing, result);
+    }
     public void Dispose()
     {
       stylists.DeleteAll();
     }
   }
 }
-
-
-    // [Fact]
-    // public void Test_CuisinesReturnTrueForSameName()
-    // {
-    //   Cuisines firstCuisines = new Cuisines("Chinese");
-    //   Cuisines secondCuisines = new Cuisines("Chinese");
-    //   Assert.Equal(firstCuisines, secondCuisines);
-    // }
