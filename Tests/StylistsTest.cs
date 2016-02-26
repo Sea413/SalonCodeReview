@@ -31,17 +31,6 @@ namespace salon
 
       Assert.Equal(testing, result);
     }
-    // [Fact]
-    // public void Test_FindingDatabaseId()
-    // {
-    //   stylists newStylist = new stylists("Sarah");
-    //   newStylist.Save();
-    //
-    //   List<stylists> testing = new List<stylists> {newStylist};
-    //   List<stylists> result = newStylist.Find();
-    //
-    //   Assert.Equal(testing, result);
-    // }
     [Fact]
     public void Test_Update_UpdatingaStylistName()
     {
@@ -53,6 +42,23 @@ namespace salon
       string result = newStylist.GetName();
 
       Assert.Equal(testingStylist, result);
+    }
+    [Fact]
+    public void Test_Delete_DeleteStylist()
+    {
+      string name1 = "Sarah";
+      stylists testingStylist1 = new stylists(name1);
+      testingStylist1.Save();
+
+      string name2 = "Josiah";
+      stylists testingStylist2 = new stylists(name2);
+      testingStylist2.Save();
+
+      testingStylist1.Delete();
+      List<stylists> resultstylists = stylists.GetAll();
+      List<stylists> testStyleList = new List<stylists> {testingStylist2};
+
+      Assert.Equal(resultstylists, testStyleList);
     }
     public void Dispose()
     {
