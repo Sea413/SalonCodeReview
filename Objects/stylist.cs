@@ -155,7 +155,7 @@ namespace salon
         {
           this._name = rdr.GetString(0);
         }
-
+        
         if (rdr != null)
         {
           rdr.Close();
@@ -166,8 +166,25 @@ namespace salon
           conn.Close();
         }
       }
+      public void Delete()
+      {
+        SqlConnection conn = DB.Connection();
+        conn.Open();
 
+        SqlCommand cmd = new SqlCommand("DELETE FROM stylists WHERE id = @SID; DELETE FROM stylists WHERE stylist_id = @SId;", conn);
 
+        SqlParameter StylistIdParameter = new SqlParameter();
+        StylistIdParameter.ParameterName = "@SId";
+        StylistIdParameter.Value = this.GetId();
+
+        cmd.Parameters.Add(StylistIdParameter);
+        cmd.ExecuteNonQuery();
+
+        if (conn != null)
+        {
+          conn.Close();
+        }
+      }
 
   public static void DeleteAll()
   {
