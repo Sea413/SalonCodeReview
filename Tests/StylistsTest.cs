@@ -31,27 +31,28 @@ namespace salon
 
       Assert.Equal(testing, result);
     }
+    // [Fact]
+    // public void Test_FindingDatabaseId()
+    // {
+    //   stylists newStylist = new stylists("Sarah");
+    //   newStylist.Save();
+    //
+    //   List<stylists> testing = new List<stylists> {newStylist};
+    //   List<stylists> result = newStylist.Find();
+    //
+    //   Assert.Equal(testing, result);
+    // }
     [Fact]
-    public void Test_SavingaStylistToDatabase()
+    public void Test_Update_UpdatingaStylistName()
     {
       stylists newStylist = new stylists("Sarah");
       newStylist.Save();
+      string testingStylist = "David";
 
-      List<stylists> testing = new List<stylists> {newStylist};
-      List<stylists> result = stylists.GetAll();
+      newStylist.Update(testingStylist);
+      string result = newStylist.GetName();
 
-      Assert.Equal(testing, result);
-    }
-    [Fact]
-    public void Test_FindingDatabaseId()
-    {
-      stylists newStylist = new stylists("Sarah");
-      newStylist.Save();
-
-      List<stylists> testing = new List<stylists> {newStylist};
-      List<stylists> result = newStylist.Find();
-
-      Assert.Equal(testing, result);
+      Assert.Equal(testingStylist, result);
     }
     public void Dispose()
     {
