@@ -132,6 +132,39 @@ namespace salon
       }
       return foundstylists;
     }
+    public List<Clients> GetClients()
+     {
+       SqlConnection conn = DB.Connection();
+       SqlDataReader rdr = null;
+       conn.Open();
+
+       SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE styleid = @StylistID ORDER BY name DESC;", conn);
+       SqlParameter CuisinesIdParameter = new SqlParameter ();
+       CuisinesIdParameter.ParameterName = "@StylistID";
+       CuisinesIdParameter.Value = this.GetId();
+       cmd.Parameters.Add(CuisinesIdParameter);
+       rdr = cmd.ExecuteReader();
+
+       List<Clients> clients = new List<Clients> {};
+       while(rdr.Read())
+       {
+         int ClientId = rdr.GetInt32(0);
+         string ClientName = rdr.GetString(1);
+         int styleistId = rdr.GetInt32(2);
+         Clients newClients = new Clients(ClientName,styleistId,ClientId);
+         clients.Add(newClients);
+       }
+       if (rdr != null)
+       {
+         rdr.Close();
+       }
+       if (conn != null)
+       {
+         conn.Close();
+       }
+       return clients;
+     }
+
     public void Update (string newName)
       {
         SqlConnection conn = DB.Connection();

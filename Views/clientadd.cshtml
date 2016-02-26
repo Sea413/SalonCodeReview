@@ -1,0 +1,20 @@
+<h1>Here are all the clients for this stylist</h1>
+@foreach (var Clients in Model["restaurant"])
+{
+    <h3>@Clients.GetName()</h3>
+}
+<h1>Add a new client!</h1>
+<form action="/stylists/ViewClient" method="post">
+  <label for="name">Name: </label>
+  <input type="text" name="name">
+  <br>  <br>
+  <select name="stylist-id">
+     @foreach (var stylist in Model)
+     {
+       <option value="@stylists.GetId()">@stylist.GetName()</option>
+     }
+   </select>
+  <button type="submit" name="button">Click here to add your stylist!</button>
+</form>
+<br><br>
+<a href="/">Go Home!</a>
