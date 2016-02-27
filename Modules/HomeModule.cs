@@ -19,10 +19,10 @@ namespace salon
         List<stylists> allstylists = stylists.GetAll();
         return View["index.cshtml", allstylists];
       };
-      // Get["/cuisine/ClearAll"] = _ => {
-      //   Cuisines.DeleteAll();
-      //   return View ["cuisineClearAll.cshtml"];
-      // };
+      Get["/stylists/ClearAll"] = _ => {
+        stylists.DeleteAll();
+        return View ["Second_Sadness_page.cshtml"];
+      };
       Get["/stylists/{id}"] =Parameters=> {
         Dictionary <string, object> model = new Dictionary <string, object>();
         var selectedstylist = stylists.Find(Parameters.id);
@@ -35,28 +35,54 @@ namespace salon
       Post["/stylists/ViewClient"] = Parameters => {
         Clients newClients = new Clients(Request.Form["name"], Request.Form["stylist-id"]);
         newClients.Save();
-        return View["clientadd.cshtml", newClients];
+        return View["Second_Sadness_page.cshtml", newClients];
       };
-      // Get["cuisines/edit/{id}"] = Parameters => {
-      //   Cuisines SelectedCuisines = Cuisines.Find(Parameters.id);
-      //   return View["cuisines_edit.cshtml", SelectedCuisines];
-      // };
-      //
-      // Patch["/cuisines/edit/{id}"]=Parameters=>{
-      // Cuisines newCusisines = Cuisines.Find(Parameters.id);
-      // newCusisines.Update(Request.Form["cuisine-name"]);
-      // return View ["success.cshtml"];
-      // };
-      //
-      // Get["cuisines/delete/{id}"] = parameters => {
-      //   Cuisines SelectedCuisines = Cuisines.Find(parameters.id);
-      //   return View["cuisineDelete.cshtml", SelectedCuisines];
-      // };
-      // Delete["cuisines/delete/{id}"] = parameters => {
-      //   Cuisines SelectedCuisines = Cuisines.Find(parameters.id);
-      //   SelectedCuisines.Delete();
-      //   return View["success.cshtml"];
-      // };
+
+      Get["/sadness_page"] =_=>{
+        List<stylists> allstylists = stylists.GetAll();
+        return View["sadness_page.cshtml", allstylists];
+      };
+      Get["/stylists/edit/{id}"] = Parameters => {
+        stylists Selectedstylists = stylists.Find(Parameters.id);
+        return View["stylist_edit.cshtml", Selectedstylists];
+      };
+
+      Patch["/stylists/edit/{id}"]=Parameters=>{
+      stylists newstylists = stylists.Find(Parameters.id);
+      newstylists.Update(Request.Form["stylist-name"]);
+      return View ["Second_Sadness_page.cshtml"];
+      };
+
+      Get["/stylists/delete/{id}"] = parameters => {
+        stylists Selectedstylists = stylists.Find(parameters.id);
+        return View["stylist_edit.cshtml", Selectedstylists];
+      };
+      Delete["/stylists/delete/{id}"] = parameters => {
+        stylists Selectedstylists = stylists.Find(parameters.id);
+        Selectedstylists.Delete();
+        return View["Second_Sadness_page.cshtml"];
+      };
+      Get["/clients/edit/{id}"] = Parameters => {
+
+        Clients Selectedclients = Clients.Find(Parameters.id);
+        return View["client_edit.cshtml", Selectedclients];
+      };
+
+      Patch["/clients/edit/{id}"]=Parameters=>{
+      Clients newClients = Clients.Find(Parameters.id);
+      newClients.UpdateName(Request.Form["client-name"], newClients.GetStylistId());
+      return View ["Second_Sadness_page.cshtml"];
+      };
+
+      Get["/clients/delete/{id}"] = parameters => {
+        Clients Selectedclients = Clients.Find(parameters.id);
+        return View["client_edit.cshtml", Selectedclients];
+      };
+      Delete["/clients/delete/{id}"] = parameters => {
+        Clients Selectedclients = Clients.Find(parameters.id);
+        Selectedclients.Delete();
+        return View["Second_Sadness_page.cshtml"];
+      };
     }
   }
 }

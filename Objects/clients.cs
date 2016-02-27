@@ -35,6 +35,10 @@ namespace salon
      {
        return _id;
      }
+     public void SetId(int newId)
+     {
+       _id =newId;
+     }
      public string GetName()
      {
        return _name;
@@ -124,7 +128,7 @@ namespace salon
           SqlDataReader rdr = null;
           conn.Open();
 
-          SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @lientID;", conn);
+          SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @ClientID;", conn);
           SqlParameter ClientsIDParameter = new SqlParameter();
           ClientsIDParameter.ParameterName = "@ClientID";
           ClientsIDParameter.Value = id.ToString();

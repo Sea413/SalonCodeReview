@@ -1,0 +1,15 @@
+<form class="" action="/clients/edit/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <input name="client-id" type="hidden" value="@Model.GetId()">
+  <label for="client-name"> Name</label>
+  <input id="client-name" name="client-name" type="text">
+  <label for="client-name">Info Here</label>
+  <button type="submit">Complete</button>
+</form>
+
+<h2>Are you sure you want to Forever remove this client?</h2>
+<h4>@Model.GetName()</h4>
+<form action="/clients/delete/@Model.GetId()" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete</button>
+</form>
