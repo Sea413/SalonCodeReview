@@ -1,10 +1,10 @@
-<h1>Here are all the Client for this stylist</h1>
+<h1>Here are all the clients for this stylist</h1>
 @foreach (var Client in Model["clients"])
 {
     <ul>
-    <li>@Client.GetName() <a href="/Client/edit/@Client.GetId()">Edit</a> |  <a href="/Client/delete/@Client.GetId()">Delete</a></li>
+    <li>@Client.GetName() <a href="/clients/edit/@Client.GetId()">Edit</a> |  <a href="/clients/delete/@Client.GetId()">Delete</a></li>
     </ul>
 }
-<h1><a href="/sadness_page">Add a new client</a>!</h1>
+<h1><a href="/stylists/client_add">Add a new client</a>!</h1>
 <br><br>
 <a href="/">Go Home!</a>

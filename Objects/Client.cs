@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
 
-namespace salon
+namespace Salon
 {
   public class Client
    {
@@ -18,8 +18,9 @@ namespace salon
      }
 
      public override bool Equals(System.Object otherClient)
-    {
-      if (!(otherClient is Client)) {
+     {
+      if (!(otherClient is Client))
+      {
         return false;
       }
       else
@@ -30,7 +31,7 @@ namespace salon
         bool nameEquality = this.GetName() == newClient.GetName();
         return (idEquality && nameEquality && idSytlistEquality);
       }
-    }
+     }
      public int GetId()
      {
        return _id;
@@ -89,6 +90,7 @@ namespace salon
        }
        return allClient;
      }
+
      public void Save()
      {
        SqlConnection conn = DB.Connection();
@@ -122,6 +124,7 @@ namespace salon
          conn.Close();
        }
      }
+
      public static Client Find(int id)
       {
         SqlConnection conn = DB.Connection();
@@ -157,7 +160,8 @@ namespace salon
         }
         return foundClient;
       }
-   public void UpdateName (string newName, int newStylistId)
+
+     public void UpdateName (string newName, int newStylistId)
      {
        SqlConnection conn = DB.Connection();
        SqlDataReader rdr;
@@ -196,6 +200,7 @@ namespace salon
          conn.Close();
        }
      }
+
      public void Delete()
      {
        SqlConnection conn = DB.Connection();
@@ -215,8 +220,9 @@ namespace salon
          conn.Close();
        }
      }
+
      public static void DeleteAll()
-    {
+     {
       SqlConnection conn = DB.Connection();
       conn.Open();
       SqlCommand cmd = new SqlCommand("DELETE FROM clients;", conn);

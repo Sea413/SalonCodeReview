@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace salon
+namespace Salon
 {
   public class SylistTesting : IDisposable
   {
@@ -31,6 +31,7 @@ namespace salon
 
       Assert.Equal(testing, result);
     }
+
     [Fact]
     public void Test_DetermingGetAll()
     {
@@ -44,6 +45,7 @@ namespace salon
 
       Assert.Equal(testing, result);
     }
+
     [Fact]
     public void Test_DetermingFind()
     {
@@ -54,6 +56,7 @@ namespace salon
 
       Assert.Equal(newStylist, result);
     }
+
     public void Test_DetermingGetClient()
     {
       Stylist newStylist = new Stylist("Sarah");
@@ -66,6 +69,7 @@ namespace salon
 
       Assert.Equal(test, result);
     }
+
     [Fact]
     public void Test_Update_UpdatingaStylistName()
     {
@@ -78,6 +82,7 @@ namespace salon
 
       Assert.Equal(testingStylist, result);
     }
+
     [Fact]
     public void Test_Delete_DeleteStylist()
     {
@@ -95,9 +100,11 @@ namespace salon
 
       Assert.Equal(resultStylist, testStyleList);
     }
+
     public void Dispose()
     {
       Stylist.DeleteAll();
+      Client.DeleteAll();
     }
   }
 }

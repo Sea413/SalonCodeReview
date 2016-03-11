@@ -5,7 +5,7 @@
  using System.Linq;
  using Xunit;
 
- namespace salon
+ namespace Salon
  {
    public class ClientTesting : IDisposable
    {
@@ -13,12 +13,14 @@
      {
        DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test; Integrated Security=SSPI;";
      }
+
      [Fact]
      public void Test_DetermineifDBisEmpty()
      {
        int result = Client.GetAll().Count;
        Assert.Equal(0,result);
      }
+
      [Fact]
      public void Test_SavingaClientToDatabase()
      {
@@ -32,6 +34,7 @@
 
        Assert.Equal(testing, result);
      }
+
      [Fact]
      public void Test_UsingGetAll()
      {
@@ -45,6 +48,7 @@
 
        Assert.Equal(testing, result);
      }
+
      [Fact]
      public void Test_DetermingFind()
      {
@@ -55,6 +59,7 @@
 
        Assert.Equal(newClient, result);
      }
+
      [Fact]
      public void Test_UpdateName_ChangeClientName()
      {
@@ -68,6 +73,8 @@
 
        Assert.Equal(testingClient, result);
      }
+
+     [Fact]
      public void Test_Delete_Delete()
      {
        Client newClient = new Client("Dave", 5);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Nancy;
 using Nancy.ViewEngines.Razor;
 
-namespace salon
+namespace Salon
 {
   public class HomeModule : NancyModule
   {
@@ -13,17 +13,20 @@ namespace salon
         List<Stylist> allStylist = Stylist.GetAll();
         return View ["index.cshtml", allStylist];
       };
+
       Post["/"] = _ => {
         Stylist newStylist = new Stylist(Request.Form["stylist-name"]);
         newStylist.Save();
         List<Stylist> allStylist = Stylist.GetAll();
         return View["index.cshtml", allStylist];
       };
-      Get["/Stylist/ClearAll"] = _ => {
+
+      Get["/stylists/ClearAll"] = _ => {
         Stylist.DeleteAll();
-        return View ["Second_Sadness_page.cshtml"];
+        return View ["stylist_client_view.cshtml"];
       };
-      Get["/Stylist/{id}"] =Parameters=> {
+
+      Get["/stylists/{id}"] =Parameters=> {
         Dictionary <string, object> model = new Dictionary <string, object>();
         var selectedstylist = Stylist.Find(Parameters.id);
         var stylistclients = selectedstylist.GetClient();
@@ -32,56 +35,59 @@ namespace salon
         return View["clientadd.cshtml", model];
       };
 
-      Post["/Stylist/ViewClient"] = Parameters => {
+      Post["/stylists/viewClient"] = Parameters => {
         Client newClient = new Client(Request.Form["name"], Request.Form["stylist-id"]);
         newClient.Save();
-        return View["Second_Sadness_page.cshtml", newClient];
+        return View["success.cshtml", newClient];
       };
 
-      Get["/sadness_page"] =_=>{
+      Get["/stylists/client_add"] =_=>{
         List<Stylist> allStylist = Stylist.GetAll();
-        return View["sadness_page.cshtml", allStylist];
+        return View["stylist_client_view.cshtml", allStylist];
       };
-      Get["/Stylist/edit/{id}"] = Parameters => {
+
+      Get["/stylists/edit/{id}"] = Parameters => {
         Stylist SelectedStylist = Stylist.Find(Parameters.id);
         return View["stylist_edit.cshtml", SelectedStylist];
       };
 
-      Patch["/Stylist/edit/{id}"]=Parameters=>{
-      Stylist newStylist = Stylist.Find(Parameters.id);
-      newStylist.Update(Request.Form["stylist-name"]);
-      return View ["Second_Sadness_page.cshtml"];
+      Patch["/stylists/edit/{id}"]=Parameters=>{
+        Stylist newStylist = Stylist.Find(Parameters.id);
+        newStylist.Update(Request.Form["stylist-name"]);
+        return View ["success.cshtml"];
       };
 
-      Get["/Stylist/delete/{id}"] = parameters => {
+      Get["/stylists/delete/{id}"] = parameters => {
         Stylist SelectedStylist = Stylist.Find(parameters.id);
         return View["stylist_edit.cshtml", SelectedStylist];
       };
-      Delete["/Stylist/delete/{id}"] = parameters => {
+
+      Delete["/stylists/delete/{id}"] = parameters => {
         Stylist SelectedStylist = Stylist.Find(parameters.id);
         SelectedStylist.Delete();
-        return View["Second_Sadness_page.cshtml"];
+        return View["success.cshtml"];
       };
-      Get["/clients/edit/{id}"] = Parameters => {
 
+      Get["/clients/edit/{id}"] = Parameters => {
         Client Selectedclients = Client.Find(Parameters.id);
         return View["client_edit.cshtml", Selectedclients];
       };
 
       Patch["/clients/edit/{id}"]=Parameters=>{
-      Client newClient = Client.Find(Parameters.id);
-      newClient.UpdateName(Request.Form["client-name"], newClient.GetStylistId());
-      return View ["Second_Sadness_page.cshtml"];
+        Client newClient = Client.Find(Parameters.id);
+        newClient.UpdateName(Request.Form["client-name"], newClient.GetStylistId());
+        return View ["success.cshtml"];
       };
 
       Get["/clients/delete/{id}"] = parameters => {
         Client Selectedclients = Client.Find(parameters.id);
         return View["client_edit.cshtml", Selectedclients];
       };
+
       Delete["/clients/delete/{id}"] = parameters => {
         Client Selectedclients = Client.Find(parameters.id);
         Selectedclients.Delete();
-        return View["Second_Sadness_page.cshtml"];
+        return View["success.cshtml"];
       };
     }
   }
