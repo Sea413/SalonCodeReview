@@ -23,7 +23,7 @@ namespace Salon
 
       Get["/stylists/ClearAll"] = _ => {
         Stylist.DeleteAll();
-        return View ["stylist_client_view.cshtml"];
+        return View ["success.cshtml"];
       };
 
       Get["/stylists/{id}"] =Parameters=> {
